@@ -1,0 +1,125 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 70px;
+    padding-right: 70px;
+    background-color: #073042;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+}
+
+.header__links {
+    display: flex;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.header__link {
+    list-style: none;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.38;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    color: #fff;
+}
+
+.header__link:hover {
+    color: #3ddc84;
+}
+
+.header__account-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.header__linked-button {
+    text-decoration: none;
+}
+
+.header__account-button {
+    display: flex;
+    background: none;
+    border: none;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.header__account-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+    color: #fff;
+}
+
+.header__account-icon {
+    background-color: rgba(255, 255, 255, 0.075);
+    padding: 10px;
+    border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+    .header__account-button_hidden {
+        display: none;
+    }
+}
+
+.header__linked-logo {
+    display: block;
+    width: 38px;
+    margin-right: 44px;
+}
+
+.header__signin-button {
+    box-sizing: border-box;
+    padding: 8px 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.header__signin-button:hover {
+    opacity: 0.6;
+}
+
+.header__signup-button {
+    box-sizing: border-box;
+    padding: 8px 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    border-radius: 3px;
+    color: black;
+    background-color: #3ddc84;
+}
+
+.header__signup-button:hover {
+    opacity: 0.6;
+}

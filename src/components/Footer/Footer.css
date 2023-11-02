@@ -1,0 +1,52 @@
+.footer {
+    padding-top: 79px;
+    padding-bottom: 20px;
+    padding-left: 70px;
+    padding-right: 70px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.21;
+}
+
+.footer__text {
+    margin: 0;
+    color: #8b8b8b;
+    text-align: center;
+    border-bottom: 1px solid #424242;
+    padding-bottom: 20px;
+}
+
+.footer__info {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__year {
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.footer__links {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.footer__link-container {
+    list-style: none;
+}
+
+.footer__link {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.21;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer__link:hover {
+    opacity: 0.7;
+}

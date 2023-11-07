@@ -9,6 +9,10 @@
     background-color: #073042;
 }
 
+.app__header {
+    background-color: #202020;
+}
+
 .header__nav {
     display: flex;
     align-items: center;
@@ -34,6 +38,10 @@
 
 .header__link:hover {
     color: #3ddc84;
+}
+
+.header__link.active {
+    font-weight: 500;
 }
 
 .header__account-menu {

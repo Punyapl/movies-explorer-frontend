@@ -1,0 +1,112 @@
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-form__string {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 40px;
+    background: #2F2F2F;
+    margin-bottom: 41px;
+    position: relative;
+    border: none;
+    width: 89%;
+    height: 46px;
+}
+
+.search-form__input {
+    position: relative;
+    width: 100%;
+    padding-left: 22px;
+    height: 46px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.search-form__button {
+    border-radius: 50%;
+    border: none;
+    background-color: #4285F4;
+    background-image: url('../../images/find.svg');
+    width: 34px;
+    height: 34px;
+    margin-right: 6px;
+}
+
+.search-form__label {
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 20px;
+
+}
+
+.search-form__radio {
+    display: none;
+}
+
+.search-form__slider {
+    background-color: #343434;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.search-form__slider:before {
+    background-color: #A0A0A0;
+    bottom: 3px;
+    content: "";
+    height: 15px;
+    left: 3px;
+    position: absolute;
+    transition: .4s;
+    width: 15px;
+}
+
+.search-form__radio:checked+.search-form__slider {
+    background-color: #2BE080;
+}
+
+.search-form__radio:checked+.search-form__slider:before {
+    transform: translateX(15px);
+    background-color: #FFFFFF;
+}
+
+.search-form__slider {
+    border-radius: 13px;
+}
+
+.search-form__slider:before {
+    border-radius: 50%;
+}
+
+
+.search-form__short-film-container {
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.28;
+}
+
+.search-form__label-text {
+    margin-left: 12px;
+}
+
+.search-form__line {
+    margin-top: 69px;
+    width: 89%;
+    height: 1px;
+    background-color: #424242;
+}

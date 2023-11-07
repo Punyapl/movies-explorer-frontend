@@ -1,0 +1,30 @@
+.saved-movies {
+    min-height: 100vh;
+    margin-top: 60px;
+}
+
+.saved-movies__footer {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.saved-movies__button {
+    display: none;
+    margin-left: 70px;
+    margin-right: 70px;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    background: #2F2F2F;
+    color: #FFF;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.saved-movies__button:hover {
+    opacity: 0.7;
+}

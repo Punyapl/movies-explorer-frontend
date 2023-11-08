@@ -8,13 +8,26 @@
     gap: 40px;
 }
 
+@media (max-width: 320px) {
+    .nav-tab {
+        gap:24px;
+    }
+}
+
 .nav-tab__link {
     height: 16px;
     color: #fff;
     text-decoration-line: underline;
     font-size: 13px;
     font-weight: 500;
-    line-height: 123.077%;
+    line-height: 1.23;
+}
+
+@media (max-width: 320px) {
+    .nav-tab__link {
+        font-size: 11px;
+        line-height: 1.455;
+    }
 }
 
 .nav-tab__link:hover {

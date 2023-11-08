@@ -38,7 +38,7 @@ function Profile() {
                                 id="email"
                                 name="email"
                                 type="email"
-                                placeholder="vitaliy@email.com"
+                                placeholder="pochta@yandex.ru"
                                 required
                             />
                         </div>

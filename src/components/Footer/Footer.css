@@ -8,6 +8,20 @@
     line-height: 1.21;
 }
 
+@media (max-width: 768px) {
+    .footer {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 320px) {
+    .footer {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
 .footer__text {
     margin: 0;
     color: #8b8b8b;
@@ -23,9 +37,23 @@
     align-items: center;
 }
 
+@media (max-width: 320px) {
+    .footer__info {
+        padding-top: 30px;
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+}
+
 .footer__year {
     color: #FFFFFF;
     margin: 0;
+}
+
+@media (max-width: 320px) {
+    .footer__year {
+        color: #8B8B8B;
+    }
 }
 
 .footer__links {
@@ -33,6 +61,14 @@
     padding: 0;
     display: flex;
     gap: 20px;
+}
+
+@media (max-width: 320px) {
+    .footer__links {
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .footer__link-container {

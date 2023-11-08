@@ -9,6 +9,20 @@
     background-color: #073042;
 }
 
+@media (max-width: 768px) {
+    .header {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 320px) {
+    .header {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
 .app__header {
     background-color: #202020;
 }
@@ -23,6 +37,12 @@
     gap: 16px;
     margin: 0;
     padding: 0;
+}
+
+@media (max-width: 768px) {
+    .header__links {
+        display: none;
+    }
 }
 
 .header__link {
@@ -49,6 +69,12 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
+}
+
+@media (max-width: 320px) {
+    .header__account-menu {
+        gap:4px;
+    }
 }
 
 .header__linked-button {
@@ -107,6 +133,14 @@
     color: #fff;
 }
 
+@media (max-width: 320px) {
+    .header__signin-button {
+        padding: 5px 10px;
+        font-size: 10px;
+        line-height: 1.6;
+    }
+}
+
 .header__signin-button:hover {
     opacity: 0.6;
 }
@@ -128,6 +162,26 @@
     background-color: #3ddc84;
 }
 
+@media (max-width: 320px) {
+    .header__signup-button {
+        padding: 5px 10px;
+        font-size: 10px;
+        line-height: 1.6;
+    }
+}
+
 .header__signup-button:hover {
     opacity: 0.6;
+}
+
+.header__burger {
+    display: none;
+    background: none;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .header__burger {
+        display: block;
+    }
 }

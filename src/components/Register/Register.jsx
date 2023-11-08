@@ -8,7 +8,7 @@ function Register() {
     return (
         <section className="register">
             <div className="register__container">
-                <Link to="/">
+                <Link to="/" className="register__logo-container">
                     <img src={Logo} alt="Логотип" className="register__logo"/>
                 </Link>
                 <h2 className="register__title">Добро пожаловать!</h2>

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Route, Routes, NavLink, Link } from "react-router-dom";
 import headerLogo from "../../images/logo.png"
+import burgerIcon from "../../images/burger.svg"
+import Navigation from "../Navigation/Navigation";
 
 function Header({ location }) {
+    const [isActiveBurger, setIsActiveBurger] = useState(false);
+
+    const openBurger = () => setIsActiveBurger(!isActiveBurger);
 
     const isAuth = true;
 
@@ -59,6 +64,12 @@ function Header({ location }) {
                         </>
                     )}
                 </div>
+                {isAuth && (
+                    <button className="header__burger" type="button" onClick={openBurger}>
+                        <img src={burgerIcon} alt="Открыть боковую панель" className="header__burger-icon"/>
+                    </button>
+                )}
+                <Navigation isOpen={isActiveBurger} closeHandler={openBurger} />
             </header>
         </>
     )

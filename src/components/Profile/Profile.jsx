@@ -22,6 +22,7 @@ function Profile() {
                                 id="name"
                                 name="name"
                                 type="text"
+                                placeholder="Виталий"
                                 required
                             />
                         </div>
@@ -37,6 +38,7 @@ function Profile() {
                                 id="email"
                                 name="email"
                                 type="email"
+                                placeholder="vitaliy@email.com"
                                 required
                             />
                         </div>

@@ -25,7 +25,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/404" element={<NotFound />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
     </savedPageContext.Provider>

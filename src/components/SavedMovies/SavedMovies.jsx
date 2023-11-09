@@ -35,20 +35,21 @@ const likedMovies = [
 function SavedMovies() {
     const { onSavedPage, setOnSavedPage } = useContext(savedPageContext);
     useEffect(() => setOnSavedPage(true), [setOnSavedPage]);
-    console.log(onSavedPage)
     return (
         <>
-            <Header location={"app"} />
-            <section className="saved-movies">
-                <SearchForm />
-                <MoviesCardList movies={likedMovies} onSavedPage={onSavedPage} />
-            </section>
-            <div className="saved-movies__footer">
-                <button className="saved-movies__button">Ещё</button>
-            </div>
+            <Header location={'app'} />
+            <main className="main">
+                <section className="saved-movies">
+                    <SearchForm />
+                    <MoviesCardList movies={likedMovies} onSavedPage={onSavedPage} />
+                    <div className="saved-movies__footer">
+                        <button className="saved-movies__button">Ещё</button>
+                    </div>
+                </section>
+            </main>
+
             <Footer />
         </>
-
     )
 }
 

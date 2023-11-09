@@ -16,6 +16,7 @@ function SearchForm() {
                         name="short-film-option"
                         id="short-film"
                         value="short-film"
+                        placeholder="Фильм"
                     />
                     <div className="search-form__slider" />
                 </label>

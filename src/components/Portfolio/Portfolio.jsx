@@ -9,15 +9,15 @@ function Portfolio() {
             </h2>
             <ul className="portfolio__links">
                 <li className="portfolio__project">
-                    <a href="https://github.com/Punyapl/how-to-learn" className="portfolio__link">Статичный сайт</a>
+                    <a href="https://github.com/Punyapl/how-to-learn" target="_blank" className="portfolio__link">Статичный сайт</a>
                     <img src={arrow} alt="Перейти к проекту" className="portfolio__arrow"/>
                 </li>
                 <li className="portfolio__project">
-                    <a href="https://github.com/Punyapl/russian-travel" className="portfolio__link">Адаптивный сайт</a>
+                    <a href="https://github.com/Punyapl/russian-travel" target="_blank" className="portfolio__link">Адаптивный сайт</a>
                     <img src={arrow} alt="Перейти к проекту" className="portfolio__arrow"/>
                 </li>
                 <li className="portfolio__project">
-                    <a href="https://mesto-punyapl.nomoredomainsrocks.ru" className="portfolio__link">Одностраничное приложение</a>
+                    <a href="https://mesto-punyapl.nomoredomainsrocks.ru" target="_blank" className="portfolio__link">Одностраничное приложение</a>
                     <img src={arrow} alt="Перейти к проекту" className="portfolio__arrow"/>
                 </li>
             </ul>   

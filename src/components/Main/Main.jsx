@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import Header from '../Header/Header.jsx';
 import Footer from '../Footer/Footer';
@@ -11,16 +11,17 @@ import Portfolio from "../Portfolio/Portfolio";
 
 function Main() {
     return (
-        <main className="main">
-            <Header location={"main"} />
-            <Promo />
-            <NavTab />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio />
+        <>
+            <Header location={'main'} />
+            <main className="main">
+                <Promo />
+                <AboutProject />
+                <Techs />
+                <AboutMe />
+                <Portfolio />
+            </main>
             <Footer />
-        </main>
+        </>
     )
 }
 

@@ -69,16 +69,19 @@ const allMovies = [
 function Movies() {
     const { onSavedPage, setOnSavedPage } = useContext(savedPageContext);
     useEffect(() => setOnSavedPage(false), [setOnSavedPage]);
+
     return (
         <>
-            <Header location={"app"} />
-            <section className="movies">
-                <SearchForm />
-                <MoviesCardList movies={allMovies} />
-            </section>
-            <div className="movies__footer">
-                <button className="movies__button">Ещё</button>
-            </div>
+            <Header location={'app'} />
+            <main className="main">
+                <section className="movies">
+                    <SearchForm />
+                    <MoviesCardList movies={allMovies} />
+                    <div className="movies__footer">
+                        <button className="movies__button">Ещё</button>
+                    </div>
+                </section>
+            </main>
             <Footer />
         </>
 

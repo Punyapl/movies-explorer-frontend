@@ -4,6 +4,8 @@
   padding-left: 70px;
   padding-right: 70px;
   padding-bottom: 100px;
+  max-width: 1280px;
+  width: calc(100% - 140px);
 }
 
 @media (max-width: 768px) {
@@ -12,6 +14,7 @@
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 90px;
+    width: calc(100% - 100px);
   }
 }
 
@@ -21,6 +24,7 @@
     padding-left: 18px;
     padding-right: 18px;
     padding-bottom: 70px;
+    width: calc(100% - 36px);
   }
 }
 

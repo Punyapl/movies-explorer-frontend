@@ -4,7 +4,7 @@ import closeIcon from "../../images/close.svg"
 
 function Navigation({ isOpen, closeHandler }) {
     return (
-        <div className={`app__overlay ${isOpen ? "app__overlay_visible" : ""}`}>
+        <div className={`navigation__container app__overlay ${isOpen ? "app__overlay_visible" : ""}`}>
             <div className={`navigation ${isOpen ? "navigation_visible" : "navigation_hidden"}`}>
                 <nav className="navigation__links">
                     <NavLink
@@ -55,8 +55,8 @@ function Navigation({ isOpen, closeHandler }) {
                 
             </div>
             <button className="navigation__close" type="button" onClick={closeHandler}>
-                    <img src={closeIcon} alt="Открыть боковую панель" className="navigation__close-icon" />
-                </button>
+                <img src={closeIcon} alt="Открыть боковую панель" className="navigation__close-icon" />
+            </button>
         </div>
     );
 }

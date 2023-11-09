@@ -6,13 +6,17 @@
     padding-bottom: 18px;
     padding-left: 70px;
     padding-right: 70px;
+    
     background-color: #073042;
+    max-width: 1140px;
+    width: calc(100% - 140px);
 }
 
 @media (max-width: 768px) {
     .header {
         padding-left: 30px;
         padding-right: 30px;
+        width: calc(100% - 60px);
     }
 }
 
@@ -20,6 +24,7 @@
     .header {
         padding-left: 14px;
         padding-right: 14px;
+        width: calc(100% - 28px);
     }
 }
 
@@ -57,7 +62,7 @@
 }
 
 .header__link:hover {
-    color: #3ddc84;
+    opacity: 0.7;
 }
 
 .header__link.active {
@@ -171,7 +176,7 @@
 }
 
 .header__signup-button:hover {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .header__burger {

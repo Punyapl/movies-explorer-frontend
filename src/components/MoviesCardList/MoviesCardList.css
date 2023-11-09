@@ -8,13 +8,13 @@
     row-gap: 30px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .movies-list {
         grid-template-columns: repeat(auto-fit, 339px);
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 767px) {
     .movies-list {
         grid-template-columns: repeat(auto-fit, 300px);
     }

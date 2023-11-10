@@ -1,4 +1,4 @@
-.app__overlay {
+.navigation-overlay {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,7 +11,7 @@
     z-index: 11;
 }
 
-.app__overlay_visible {
+.navigation-overlay_visible {
     visibility: visible;
     opacity: 1;
 }
@@ -62,7 +62,7 @@
 }
 
 .navigation__link:hover {
-    color: #3ddc84;
+    opacity: 0.7;
 }
 
 .navigation__link.active {
@@ -87,12 +87,12 @@
     transform: translateX(0);
 }
 
-.navigation__close {
+.navigation-container__close {
     background: none;
     border: none;
 }
 
-.navigation__close-icon {
+.navigation-container__close-icon {
     position: absolute;
     top: 22px;
     right: 22px;
@@ -101,32 +101,27 @@
 }
 
 @media (max-width: 500px) {
-    .navigation__close-icon {
+    .navigation-container__close-icon {
         top: 13px;
         right: 13px;
     }
 }
 
-.navigation__close-icon:hover {
-    transform: scale(1.2);
+.navigation-container__close-icon:hover {
+    opacity: 0.8;
 }
 
-.navigation__close-icon:active {
-    transform: scale(1.1);
-}
-
-.navigation__linked-button {
-    text-decoration: none;
-}
 
 .navigation__account-button {
+    text-decoration: none;
     display: flex;
-    background: none;
-    border: none;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
-    padding: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.navigation__account-button:hover {
+    opacity: 0.7;
 }
 
 .navigation__account-text {
@@ -138,6 +133,7 @@
 }
 
 .navigation__account-icon {
+    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.075);
     padding: 10px;
     border-radius: 50px;

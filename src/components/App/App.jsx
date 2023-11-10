@@ -17,33 +17,9 @@ function App() {
 
   const [onSavedPage, setOnSavedPage] = useState(false);
 
-  function checkLocation() {
-    const location = (window.location.href).replace('http://localhost:3000', '');
-    if (location == '/movies' || location == '/saved-movies' || location == '/profile') {
-      console.log(location)
-      console.log('not pow')
-      return false;
-    } else {
-      console.log(location)
-      console.log('pow')
-      return true;
-    }
-  }
-
-  const [isMain, setIsMain] = useState(true)
-
-  useEffect(() => {
-    if (checkLocation()) {
-      setIsMain(true);
-    } else {
-      setIsMain(false);
-    }
-  }, [isMain,checkLocation])
-
   return (
     <savedPageContext.Provider value={{ onSavedPage, setOnSavedPage }}>
       <div className="page">
-        {/* <Header location={'app'}/> */}
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/movies" element={<Movies />} />
@@ -53,7 +29,6 @@ function App() {
           <Route path="/sign-in" element={<Login />} />
           <Route path="/not-found" element={<NotFound />} />
         </Routes>
-        {/* <Footer /> */}
       </div>
     </savedPageContext.Provider>
 

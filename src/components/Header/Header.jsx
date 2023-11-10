@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes, NavLink, Link } from "react-router-dom";
-import headerLogo from "../../images/logo.png"
+import headerLogo from "../../images/logo.svg"
 import burgerIcon from "../../images/burger.svg"
 import Navigation from "../Navigation/Navigation";
 
@@ -13,25 +13,24 @@ function Header({ location }) {
 
     return (
         <>
-            <header className={`header ${location}__header`}>
+            <header className={`header header_${location}`}>
                 <nav className="header__nav">
                     <Link className="header__linked-logo" to="/">
                         <img src={headerLogo} alt="Movies explorer лого" className="header__logo" />
                     </Link>
                     <div className="header__links">
-                        <NavLink to="/movies" activeClassName="header__link_active" className="header__link">
+                        <NavLink to="/movies" className="header__link">
                             Фильмы
                         </NavLink>
-                        <NavLink to="/saved-movies" activeClassName="header__link_active" className="header__link">
+                        <NavLink to="/saved-movies" className="header__link">
                             Сохраненные фильмы
                         </NavLink>
                     </div>
                 </nav>
                 <div className="header__account-menu">
                     {isAuth ? (
-                        <Link className="header__linked-button" to="/profile">
-                            <button className="header__account-button header__account-button_hidden" type="button">
-                                <p className="header__account-text">Аккаунт</p>
+                            <Link className="header__account-button header__account-button_hidden" to="/profile">
+                                <span className="header__account-text">Аккаунт</span>
                                 <svg
                                     width="12"
                                     height="12"
@@ -47,30 +46,25 @@ function Header({ location }) {
                                         fill="#fff"
                                     />
                                 </svg>
-                            </button>
-                        </Link>
+                            </Link>
                     ) : (
                         <>
-                            <Link to="/signup">
-                                <button className="header__signin-button" type="button">
+                            <Link to="/signup" className="header__signin-button">
                                     Регистрация
-                                </button>
                             </Link>
-                            <Link to="/signin">
-                                <button className="header__signup-button" type="button">
+                            <Link to="/signin" className="header__signup-button">
                                     Войти
-                                </button>
                             </Link>
                         </>
                     )}
                 </div>
                 {isAuth && (
                     <button className="header__burger" type="button" onClick={openBurger}>
-                        <img src={burgerIcon} alt="Открыть боковую панель" className="header__burger-icon"/>
+                        <img src={burgerIcon} alt="Открыть боковую панель" className="header__burger-icon" />
                     </button>
                 )}
-                <Navigation isOpen={isActiveBurger} closeHandler={openBurger} />
             </header>
+            <Navigation isOpen={isActiveBurger} closeHandler={openBurger} />
         </>
     )
 }

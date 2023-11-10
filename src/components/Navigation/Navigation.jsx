@@ -4,12 +4,11 @@ import closeIcon from "../../images/close.svg"
 
 function Navigation({ isOpen, closeHandler }) {
     return (
-        <div className={`navigation__container app__overlay ${isOpen ? "app__overlay_visible" : ""}`}>
+        <div className={`navigation-container navigation-overlay ${isOpen ? "navigation-overlay_visible" : ""}`}>
             <div className={`navigation ${isOpen ? "navigation_visible" : "navigation_hidden"}`}>
                 <nav className="navigation__links">
                     <NavLink
                         className="navigation__link"
-                        activeClassName="navigation__link_active"
                         to="/"
                         replace
                     >
@@ -17,7 +16,6 @@ function Navigation({ isOpen, closeHandler }) {
                     </NavLink>
                     <NavLink
                         className="navigation__link"
-                        activeClassName="navigation__link_active"
                         to="/movies"
                         replace
                     >
@@ -25,16 +23,14 @@ function Navigation({ isOpen, closeHandler }) {
                     </NavLink>
                     <NavLink
                         className="navigation__link"
-                        activeClassName="navigation__link_active"
                         to="/saved-movies"
                         replace
                     >
                         Сохранённые фильмы
                     </NavLink>
                 </nav>
-                <Link className="navigation__linked-button" to="/profile">
-                    <button className="navigation__account-button" type="button">
-                        <p className="navigation__account-text">Аккаунт</p>
+                    <Link className="navigation__account-button" to="/profile">
+                        <span className="navigation__account-text">Аккаунт</span>
                         <svg
                             width="12"
                             height="12"
@@ -50,12 +46,11 @@ function Navigation({ isOpen, closeHandler }) {
                                 fill="#fff"
                             />
                         </svg>
-                    </button>
-                </Link>
-                
+                    </Link>
+
             </div>
-            <button className="navigation__close" type="button" onClick={closeHandler}>
-                <img src={closeIcon} alt="Открыть боковую панель" className="navigation__close-icon" />
+            <button className="navigation-container__close" type="button" onClick={closeHandler}>
+                <img src={closeIcon} alt="Открыть боковую панель" className="navigation-container__close-icon" />
             </button>
         </div>
     );

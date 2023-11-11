@@ -18,13 +18,13 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 390px) {
   .about-me {
     padding-top: 70px;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 14px;
+    padding-right: 14px;
     padding-bottom: 70px;
-    width: calc(100% - 36px);
+    width: calc(100% - 28px);
   }
 }
 
@@ -56,12 +56,19 @@
 
 @media (max-width: 620px) {
   .about-me__info {
+    min-width: 292px;
     align-items: center;
     flex-direction: column-reverse;
     padding-top: 60px;
     gap: 40px;
   }
 }
+
+/* @media (max-width: 390px) {
+  .about-me__info {
+    max-width: 292px;
+  }
+} */
 
 .about-me__texts {
   color: #FFF;

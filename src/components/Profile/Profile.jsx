@@ -51,10 +51,8 @@ function Profile() {
                                 <button className="profile__button profile__edit-button" type="submit">
                                     Редактировать
                                 </button>
-                                <Link to="/sign-in" className="profile__button-link">
-                                    <button className="profile__button profile__exit-button" >
+                                <Link to="/sign-in" className="profile__button profile__exit-button">
                                         Выйти из аккаунта
-                                    </button>
                                 </Link>
 
                             </div>

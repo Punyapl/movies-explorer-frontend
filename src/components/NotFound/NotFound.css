@@ -59,6 +59,7 @@
 }
 
 .not-found__back {
+    cursor: pointer;
     background: none;
     border: none;
     margin: auto;

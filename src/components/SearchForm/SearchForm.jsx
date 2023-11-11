@@ -9,16 +9,15 @@ function SearchForm() {
                 <button className="search-form__button" type="submit" />
             </div>
             <div className="search-form__short-film-container">
-                <label className="search-form__label" htmlFor="short-film">
+                <label className="search-form__label">
                     <input
                         className="search-form__radio"
                         type="checkbox"
                         name="short-film-option"
                         id="short-film"
                         value="short-film"
-                        placeholder="Фильм"
                     />
-                    <div className="search-form__slider" />
+                    <span className="search-form__slider" />
                 </label>
                 <Preloader />
                 <span className="search-form__label-text">Короткометражки</span>

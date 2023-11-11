@@ -16,7 +16,7 @@
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 390px) {
     .portfolio {
         padding-left: 18px;
         padding-right: 18px;
@@ -34,7 +34,7 @@
     color: #8b8b8b;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 390px) {
     .portfolio__title {
         font-size: 18px;
         line-height: normal;

@@ -29,6 +29,7 @@
 }
 
 .saved-movies__button {
+    cursor: pointer;
     display: none;
     margin-left: 70px;
     margin-right: 70px;

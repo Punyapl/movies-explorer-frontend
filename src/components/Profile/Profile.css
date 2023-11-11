@@ -65,11 +65,10 @@
     gap: 16px;
 }
 
-.profile__button-link {
-    text-align: center;
-}
-
 .profile__button {
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
     color: #FFF;
     background: none;
     border: none;

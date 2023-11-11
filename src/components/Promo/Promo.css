@@ -37,6 +37,8 @@
     z-index: 2;
     color: #FFF;
     margin: 0;
+    margin-left: 19px;
+    margin-right: 19px;
     max-width: 730px;
     font-size: 50px;
     font-weight: 400;

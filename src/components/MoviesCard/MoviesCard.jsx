@@ -20,7 +20,7 @@ function MoviesCard({ title, duration, imageUrl }) {
             <div className="movies-card__header">
                 <h2 className="movies-card__title">{title}</h2>
                 <button
-                    className={`movies-card__button ${!onSavedPage ? "movies-card__buttton_like" : "movies-card__button_delete"
+                    className={`movies-card__button ${!onSavedPage ? "movies-card__button_like" : "movies-card__button_delete"
                         }`}
                     onClick={!onSavedPage ? handleSave : handleDelete}
                 >

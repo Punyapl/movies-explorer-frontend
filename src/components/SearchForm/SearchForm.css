@@ -4,6 +4,7 @@
     align-items: center;
     max-width: 1140px;
     width: 100%;
+    transition: all 0.2s ease-in-out;
 }
 @media (max-width: 1170px) {
     .search-form{
@@ -11,7 +12,13 @@
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 720px) {
+    .search-form{
+        max-width: 624px;
+    }
+}
+
+@media (max-width: 650px) {
     .search-form{
         max-width: 292px;
     }
@@ -68,6 +75,7 @@
 }
 
 .search-form__button {
+    cursor: pointer;
     border-radius: 50%;
     border: none;
     background-color: #4285F4;

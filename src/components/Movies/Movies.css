@@ -29,6 +29,7 @@
 }
 
 .movies__button {
+    cursor: pointer;
     margin-left: 70px;
     margin-right: 70px;
     width: 100%;

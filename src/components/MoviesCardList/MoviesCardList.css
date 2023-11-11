@@ -8,6 +8,7 @@
     justify-content: center;
     column-gap: 24px;
     row-gap: 37px;
+    transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 900px) {
@@ -19,7 +20,14 @@
 
 @media (max-width: 767px) {
     .movies-list {
+        row-gap: 14px;
         margin-top: 50px;
         grid-template-columns: repeat(auto-fit, 300px);
+    }
+}
+
+@media (max-width: 650px) {
+    .movies-list {
+        max-width: 320px;
     }
 }

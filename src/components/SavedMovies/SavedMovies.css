@@ -62,3 +62,30 @@
 .saved-movies__button:hover {
     opacity: 0.8;
 }
+
+.saved-movies__message {
+    color: #FFF;
+    margin: 0;
+    text-align: center;
+    height: 80px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+    .saved-movies__message {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .saved-movies__message {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 500px) {
+    .saved-movies__message {
+        font-size: 13px;
+    }
+}

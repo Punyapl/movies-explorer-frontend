@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../images/logo.svg";
 
+function Register({ submitHandler, isLoading, message, setMessage }) {
 
-function Register() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+
+    useEffect(() => setMessage(""), [setMessage]);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        submitHandler(name, email, password, setEmail, setPassword, setName);
+    };
+
     return (
         <main className="main">
             <section className="register">
@@ -13,7 +24,7 @@ function Register() {
                         <img src={Logo} alt="Логотип" className="register__logo" />
                     </Link>
                     <h1 className="register__title">Добро пожаловать!</h1>
-                    <form className="register__form" name="register">
+                    <form className="register__form" name="register" onSubmit={onSubmit}>
                         <fieldset className="register__inputs">
                             <div className="register__input">
                                 <label
@@ -31,6 +42,9 @@ function Register() {
                                     required
                                     minLength={2}
                                     maxLength={16}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    disabled={isLoading}
                                 />
                             </div>
                             <div className="register__input">
@@ -47,6 +61,9 @@ function Register() {
                                     type="email"
                                     placeholder="E-mail"
                                     required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    disabled={isLoading}
                                 />
                             </div>
                             <div className="register__input">
@@ -65,11 +82,19 @@ function Register() {
                                     required
                                     minLength={6}
                                     maxLength={16}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                         </fieldset>
+                        <p
+                            className={`register__message ${message ? "register__message_fail" : ""
+                                }`}
+                        >
+                            {message}
+                        </p>
                         <button className="register__button" type="submit">
-                            Зарегистрироваться
+                            {isLoading ? "Загрузка..." : "Зарегистрироваться"}
                         </button>
                     </form>
                     <p className="register__text">

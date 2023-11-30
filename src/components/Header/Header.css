@@ -48,6 +48,10 @@
     padding: 0;
 }
 
+.header__links_hidden {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .header__links {
         display: none;
@@ -224,3 +228,4 @@
         max-height: 43px;
     }
 }
+

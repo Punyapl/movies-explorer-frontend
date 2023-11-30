@@ -2,7 +2,8 @@ import React from "react";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, onSavedPage }) {
+function MoviesCardList({ movies, onSavedPage, onSaveHandler, onDeleteHandler, savedMovies }) {
+    
     return (
         <ul
             className={`movies-list 
@@ -11,8 +12,8 @@ function MoviesCardList({ movies, onSavedPage }) {
                     : ""
                 }`}
         >
-            {movies.map((movie) => (
-                <MoviesCard key={movie.id} {...movie} />
+            {movies && movies.map((movie) => (
+                <MoviesCard key={movie._id || movie.id} onSaveHandler={onSaveHandler} onDeleteHandler={onDeleteHandler} savedMovies={savedMovies} onSavedPage={onSavedPage} {...movie} />
             ))}
         </ul>
     );

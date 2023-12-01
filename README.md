@@ -4,3 +4,9 @@
 
 # Запуск проекта
 Запуск проекта (фронт-енд части) осуществляется командой **npm run start**
+
+# Ссылка на пул реквест
+https://github.com/Punyapl/movies-explorer-frontend/pull/2
+
+#Ссылка на задеплоенный на сервере проект
+movies-explorer.punyapl.nomoredomainsrocks.ru

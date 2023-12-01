@@ -96,7 +96,6 @@ function App() {
     auth
       .login(email, password)
       .then((data) => {
-        console.log(data)
         if (data.jwt) {
           setIsLoggedIn(true);
           navigate("/movies");

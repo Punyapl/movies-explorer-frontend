@@ -55,7 +55,7 @@ class Api {
 }
 
 export const mainApi = new Api({
-    baseUrl: "api.movies-exp.punyapl.nomoredomainsrocks.ru",
+    baseUrl: "https://api.movies-exp.punyapl.nomoredomainsrocks.ru",
     headers: {
         "Content-Type": "application/json",
     },

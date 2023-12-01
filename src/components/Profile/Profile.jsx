@@ -7,9 +7,10 @@ import Header from "../Header/Header";
 import currentUserContext from "../../context/currentUserContext";
 import { useBrowserValidation } from "../../hooks/useBrowserValidation";
 
+
 function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage }) {
     const { currentUser, setCurrentUser } = useContext(currentUserContext);
-    const { values, errors, isFormValid, handleChange, setValues } = useBrowserValidation(currentUser.name, currentUser.email);
+    const { values, errors, isFormValid, handleChange, setValues, setIsFormValid } = useBrowserValidation(currentUser.name, currentUser.email);
     const navigate = useNavigate();
     useEffect(() => setMessage(""), [setMessage]);
 
@@ -18,8 +19,8 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
             name: currentUser.name,
             email: currentUser.email,
         });
-        
-    }, [currentUser.name, currentUser.email, setValues]);
+
+    }, [currentUser.name, currentUser.email, setValues, currentUser]);
 
     const signOut = () => {
         localStorage.removeItem("queryData");
@@ -36,6 +37,8 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
     const onSubmitForm = (e) => {
         e.preventDefault();
         submitHandler({ name: values["name"], email: values["email"] });
+        setIsFormValid(false);
+        
     };
 
     return (

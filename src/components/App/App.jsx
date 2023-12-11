@@ -40,8 +40,8 @@ function App() {
     if (isLoggedIn) {
       mainApi
         .getCurrentUserInfo(token)
-        .then((response) => {
-          setCurrentUser(response.data);
+        .then((res) => {
+          setCurrentUser(res.data);
         })
         .catch((e) => console.log(e));
     }
@@ -141,8 +141,8 @@ function App() {
       });
     mainApi
       .getCurrentUserInfo(token)
-      .then((response) => {
-        setCurrentUser(response.data);
+      .then((res) => {
+        setCurrentUser(res.data);
       })
       .catch((e) => console.log(e));
   }

@@ -3,18 +3,16 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../images/logo.svg";
 
-import useBrowserValidation from "../../hooks/useBrowserValidation";
-
 function Login({ submitHandler, isLoading, message, setMessage }) {
 
-    const { values, errors, handleChange, isFormValid, setIsFormValid } =
-    useBrowserValidation();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     useEffect(() => setMessage(""), [setMessage]);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        submitHandler(values["email"], values["password"]);
+        submitHandler(email, password, setEmail, setPassword);
     };
 
     return (
@@ -41,8 +39,8 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
                                     type="email"
                                     required
                                     placeholder="E-mail"
-                                    value={values["email"] || ""}
-                                    onChange={handleChange}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     disabled={isLoading}
                                 />
                             </div>
@@ -62,8 +60,8 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
                                     required
                                     minLength={6}
                                     maxLength={16}
-                                    value={values["password"] || ""}
-                                    onChange={handleChange}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     disabled={isLoading}
                                 />
                             </div>

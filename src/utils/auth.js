@@ -1,4 +1,5 @@
-export const BASE_URL = "https://api.movies-exp.punyapl.nomoredomainsrocks.ru";
+// export const BASE_URL = "https://api.movies-exp.punyapl.nomoredomainsrocks.ru";
+export const BASE_URL = "http://localhost:3001";
 
 const checkServerResponse = (res) => {
     if (res.ok) {

@@ -1,44 +1,76 @@
-import React, { useContext, useEffect } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import validator from "validator";
 import { Link, useNavigate } from "react-router-dom";
 
 import Header from "../Header/Header";
 
 import currentUserContext from "../../context/currentUserContext";
-import { useBrowserValidation } from "../../hooks/useBrowserValidation";
 
 
 function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage }) {
     const { currentUser, setCurrentUser } = useContext(currentUserContext);
-    const { values, errors, isFormValid, handleChange, setValues, setIsFormValid } = useBrowserValidation(currentUser.name, currentUser.email);
+    const [formValues, setFormValues] = useState({
+        name: currentUser.name,
+        email: currentUser.email,
+    });
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    const checkIsFormValid = (name, value) => {
+        switch (name) {
+            case "name":
+                if ((value.length > 2)) {
+                    setIsFormValid(true);
+                } else if (value.length < 30) {
+                    setIsFormValid(true);
+                } else if (new RegExp(/^[а-яА-ЯёЁa-zA-Z\s/-]+$/).test(value)) {
+                    setIsFormValid(true);
+                } else if (value !== currentUser.name){
+                    setIsFormValid(true);
+                } else {
+                    setIsFormValid(false);
+                }
+                break;
+            case "email":
+                if (value.length !== 0) {
+                    setIsFormValid(true);
+                } else if (validator.isEmail(value)) {
+                    setIsFormValid(true);
+                } else if (value !== currentUser.email){
+                    setIsFormValid(true);
+                } else {
+                    setIsFormValid(false);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value });
+        checkIsFormValid(name, value);
+    };
+
+
     const navigate = useNavigate();
-    useEffect(() => setMessage(""), [setMessage]);
 
     useEffect(() => {
-        setValues({
-            name: currentUser.name,
-            email: currentUser.email,
-        });
-
-    }, [currentUser.name, currentUser.email, setValues, currentUser]);
+        setMessage("");
+    }, [setMessage]);
 
     const signOut = () => {
-        localStorage.removeItem("queryData");
-        localStorage.removeItem("savedMovies");
-        localStorage.removeItem("token");
-        setIsLoggedIn(false);
+        localStorage.clear();
         navigate("/");
-        setCurrentUser({
-            name: "",
-            email: "",
-        })
+        setIsLoggedIn(false);
+        setCurrentUser({ name: "", email: "" });
     };
 
     const onSubmitForm = (e) => {
         e.preventDefault();
-        submitHandler({ name: values["name"], email: values["email"] });
+        submitHandler({ name: formValues.name, email: formValues.email });
         setIsFormValid(false);
-        
+
     };
 
     return (
@@ -65,7 +97,7 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
                                         minLength="2"
                                         maxLength="30"
                                         placeholder={currentUser.name}
-                                        value={values["name"] || ""}
+                                        value={formValues.name}
                                         required
                                         onChange={handleChange}
                                         disabled={isLoading}
@@ -84,7 +116,7 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
                                         name="email"
                                         type="email"
                                         placeholder={currentUser.email}
-                                        value={values["email"] || ""}
+                                        value={formValues.email}
                                         required
                                         onChange={handleChange}
                                         disabled={isLoading}

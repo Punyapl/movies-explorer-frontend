@@ -69,39 +69,47 @@ function Movies({ savedMovies, setSavedMovies }) {
     }, [shortFilmsCheck, queryData]);
 
     const submitHandler = async (isOnlyShortFilms, searchQuery) => {
-        try {
-            setIsLoading(true);
-            const allMovies = await beatFilmApi.getMovies();
-            filteredMovies = await filterMovies(searchQuery, allMovies);
-            filteredShortMovies = findOnlyShortMovies(filteredMovies);
-            const queryData = {
-                allMovies,
-                searchQuery: searchQuery,
-                filteredMovies,
-                filteredShortMovies,
-                isOnlyShortFilms,
-            };
-            localStorage.setItem("queryData", JSON.stringify(queryData));
+        setIsLoading(true);
+        beatFilmApi
+            .getMovies()
+            .then((result) => {
+                filteredMovies = filterMovies(searchQuery, result);
+                filteredShortMovies = findOnlyShortMovies(filteredMovies);
+                const queryData = {
+                    result,
+                    searchQuery: searchQuery,
+                    filteredMovies,
+                    filteredShortMovies,
+                    isOnlyShortFilms,
+                };
+                localStorage.setItem("queryData", JSON.stringify(queryData));
 
-            isOnlyShortFilms
-                ? setMovies(filteredShortMovies.slice(0, initialCardsAmount))
-                : setMovies(filteredMovies.slice(0, initialCardsAmount));
+                isOnlyShortFilms
+                    ? setMovies(filteredShortMovies.slice(0, initialCardsAmount))
+                    : setMovies(filteredMovies.slice(0, initialCardsAmount));
 
-            setErrorMessage("")
-            setIsLoading(false);
-        } catch (e) {
-            setMovies([]);
-            setErrorMessage(defaultMessageError);
-            console.log(e);
-            setIsLoading(false);
-        }
+                setErrorMessage("")
+                setIsLoading(false);
+            })
+            .catch((e) => {
+                setMovies([]);
+                setErrorMessage(defaultMessageError);
+                console.log(e);
+                setIsLoading(false);
+            });
     };
 
-    const moreButtonHandler = () => setCardsPage((prev) => prev + 1);
-
-    const MoreButton = () => (
-        <button className="movies__button" onClick={moreButtonHandler}>Ещё</button>
-    );
+    const moreButtonHandler = () => {
+        if (shortFilmsCheck) {
+            if (cardsCount < filteredShortMovies.length) {
+                setCardsPage((prevPage) => prevPage + 1);
+            }
+        } else {
+            if (cardsCount < filteredMovies.length) {
+                setCardsPage((prevPage) => prevPage + 1);
+            }
+        }
+    };
 
     const saveMovie = (movie, likeHandler) => {
         mainApi
@@ -143,9 +151,9 @@ function Movies({ savedMovies, setSavedMovies }) {
                     <div className="movies__footer">
                         {shortFilmsCheck
                             ? cardsCount < filteredShortMovies.length &&
-                            !isLoading && <MoreButton />
+                            !isLoading && <button className="movies__button" onClick={moreButtonHandler}>Ещё</button>
                             : cardsCount < filteredMovies.length &&
-                            !isLoading && <MoreButton />}
+                            !isLoading && <button className="movies__button" onClick={moreButtonHandler}>Ещё</button>}
                     </div>
                 </section>
             </main>

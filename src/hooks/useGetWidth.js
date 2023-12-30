@@ -1,28 +1,32 @@
-import { useLayoutEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const UseGetWidth = () => {
-  const [width, setWidth] = useState(1280);
-  useLayoutEffect(() => {
-    const getWidth = () => {
-      setWidth(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    const debouncedHandleResize = debounce(handleResize, 1000);
+
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
     };
-
-    function debounce(func, ms) {
-      let timer;
-      return () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          timer = null;
-          func.apply(this, arguments);
-        }, ms);
-      };
-    }
-
-    const debouncedGetWidth = debounce(getWidth, 1000);
-
-    window.addEventListener("resize", debouncedGetWidth);
-    getWidth();
-    return () => window.removeEventListener("resize", debouncedGetWidth);
   }, []);
   return width;
 };
+
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      timeout = null;
+      func.apply(this, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}

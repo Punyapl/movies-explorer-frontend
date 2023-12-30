@@ -29,12 +29,13 @@ function App() {
     email: "",
   });
   const [savedMovies, setSavedMovies] = useState([])
+
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
       navigate("/movies");
     }
-  }, [token, setIsLoggedIn]);
+  }, [token]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -43,9 +44,9 @@ function App() {
         .then((res) => {
           setCurrentUser(res.data);
         })
-        .catch((e) => console.log(e));
+        .catch((err) => console.log(err));
     }
-  }, [token, isLoggedIn]);
+  }, [token, isLoggedIn, setCurrentUser]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -59,13 +60,12 @@ function App() {
           setSavedMovies(ownSavedMovies);
           setSavedMoviesMessage("");
         })
-        .catch((e) => {
+        .catch((err) => {
           setSavedMoviesMessage(defaultMessageError);
-          // console.log(e);
         });
     }
 
-  }, [currentUser._id, setSavedMovies, token]);
+  }, [currentUser._id, setSavedMovies, token, isLoggedIn, setSavedMoviesMessage]);
 
   function registerUser(name, email, password) {
     setIsLoading(true);
@@ -77,17 +77,18 @@ function App() {
           setUnauthPageMessage("");
         }
       })
-      .catch((e) => {
-        e.json()
-      })
-      .then((e) => {
-        if (e?.message) {
-          setUnauthPageMessage(e.message);
-        }
-      })
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setIsLoading(false);
+      .catch((err) => {
+        err.json().then((err) => {
+          if (err?.message) {
+            setUnauthPageMessage(err.message);
+          } else {
+            setUnauthPageMessage('Не удалось зарегистрироваться');
+          }
+        })
+          .catch((err) => console.error(err))
+          .finally(() => {
+            setIsLoading(false);
+          });
       });
   }
 
@@ -102,30 +103,33 @@ function App() {
           setUnauthPageMessage("");
         }
       })
-      .catch((e) => {
-        switch (e.status) {
+      .catch((err) => {
+        switch (err.status) {
           case 401:
             setUnauthPageMessage('Неверные данные для входа');
             break;
           default:
             setUnauthPageMessage('Не удалось войти');
         }
-        e.json()
-        console.log(e)
-      })
-      .then((e) => {
-        if (e?.message) {
-          setUnauthPageMessage(e.message);
-        }
-        setIsLoggedIn(false);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setIsLoading(false));
+        err.json()
+        console.log(err)
+        err.json().then((err) => {
+          if (err?.message) {
+            setUnauthPageMessage(err.message);
+          } else {
+            setUnauthPageMessage('Не удалось войти');
+          }
+        })
+          .then(() => setIsLoggedIn(false))
+          .catch((err) => console.error(err))
+          .finally(() => setIsLoading(false));
+      });
   }
 
   function updateUserInfo(userDataFromForm) {
     setProfilePageMessage("");
     setIsLoading(true);
+  
     mainApi
       .editCurrentUserInfo(userDataFromForm, token)
       .then((userDataUpdated) => {
@@ -133,18 +137,22 @@ function App() {
           name: userDataUpdated.name,
           email: userDataUpdated.email,
         });
+        mainApi
+          .getCurrentUserInfo(token)
+          .then((res) => {
+            setCurrentUser(res.data);
+            setIsLoading(false);
+            setProfilePageMessage(defaultMessageSaved);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            console.log(err);
+          });
       })
-      .catch((e) => console.log(e))
-      .finally(() => {
+      .catch((err) => {
         setIsLoading(false);
-        setProfilePageMessage(defaultMessageSaved);
+        console.log(err);
       });
-    mainApi
-      .getCurrentUserInfo(token)
-      .then((res) => {
-        setCurrentUser(res.data);
-      })
-      .catch((e) => console.log(e));
   }
 
   return (

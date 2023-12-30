@@ -6,17 +6,15 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery, isL
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    if (lastSearchQuery) {
-      setQueryValue(lastSearchQuery);
-    }
+    lastSearchQuery && setQueryValue(lastSearchQuery);
   }, [lastSearchQuery]);
 
   const onClickCheckBox = () => setCheckbox(!checkbox);
 
   const handleInputChange = (e) => {
     const { value } = e.target;
-    setQueryValue(value);
     validateInput(value);
+    setQueryValue(value);
   };
 
   const validateInput = (value) => {
@@ -40,11 +38,7 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery, isL
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    if (isFormValid) {
-      submitHandler(checkbox, queryValue);
-    } else {
-      setErrorText("Заполните правильно это поле");
-    }
+    isFormValid ? submitHandler(checkbox, queryValue) : setErrorText("Заполните правильно это поле");
   };
 
   return (

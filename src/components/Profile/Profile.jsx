@@ -46,12 +46,11 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
         }
     }
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormValues({ ...formValues, [name]: value });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         checkIsFormValid(name, value);
+        setFormValues({ ...formValues, [name]: value });
     };
-
 
     const navigate = useNavigate();
 
@@ -68,9 +67,9 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
 
     const onSubmitForm = (e) => {
         e.preventDefault();
+        checkIsFormValid(formValues.name, formValues.email);
         submitHandler({ name: formValues.name, email: formValues.email });
         setIsFormValid(false);
-
     };
 
     return (

@@ -1,4 +1,8 @@
-export const getMovieId = (id, array) => {
+export function getMovieId(id, array) {
   const searchItem = array.find((movie) => movie.movieId === id);
-  return searchItem._id;
+  if (searchItem) {
+    return searchItem._id;
+  } else {
+    return null;
+  }
 }

@@ -1,9 +1,11 @@
-export const filterMovies = (searchQuery, moviesArray) => {
-    return moviesArray.filter((movie) =>
+export function filterMovies (searchQuery, moviesArray) {
+    const filteredMovies =  moviesArray.filter((movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    return filteredMovies
 };
 
-export const findOnlyShortMovies = (movies) => {
-    return movies.filter((movie) => movie.duration < 40);
+export function findOnlyShortMovies (movies) {
+    const shortMovies = movies.filter((movie) => movie.duration < 40);
+    return shortMovies
 };

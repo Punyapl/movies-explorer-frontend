@@ -14,26 +14,12 @@ function SavedMovies({ savedMovies, setSavedMovies, message }) {
     const [moviesForRender, setMoviesForRender] = useState(savedMovies)
     const token = localStorage.getItem("token");
 
-    useEffect(() => setMoviesForRender(savedMovies), [savedMovies])
-
-    const deleteMovie = (movieId, likeHandler) => {
-        mainApi
-            .removeMovie(movieId, token)
-            .then(() => {
-                likeHandler(false);
-                setSavedMovies((state) => state.filter((m) => m._id !== movieId));
-                setMoviesForRender((state) => state.filter((m) => m._id !== movieId));
-            })
-            .catch((e) => console.log(e));
-    };
+    useEffect(() => {
+        setMoviesForRender(savedMovies)
+    }, [savedMovies])
 
     const submitHandler = (isOnlyShortFilms, searchQuery) => {
-        const filteredMovies = filterMovies(searchQuery, savedMovies);
-        const filteredShortMovies = findOnlyShortMovies(filteredMovies);
-
-        isOnlyShortFilms
-            ? setMoviesForRender(filteredShortMovies)
-            : setMoviesForRender(filteredMovies);
+        setMoviesForRender(isOnlyShortFilms ? findOnlyShortMovies(filterMovies(searchQuery, savedMovies)) : filterMovies(searchQuery, savedMovies));
     };
 
     useEffect(() => {
@@ -43,17 +29,17 @@ function SavedMovies({ savedMovies, setSavedMovies, message }) {
                 const values = Object.values(moviesData);
                 setSavedMovies(values[0]);
             })
-            .catch((e) => console.log(e));
+            .catch((err) => console.log(err));
     }, [setSavedMovies, token]);
-    
+
     return (
         <>
             <Header location={'app'} />
             <main className="main">
                 <section className="saved-movies">
-                    <SearchForm submitHandler={submitHandler} checkbox={shortFilmsCheck} setCheckbox={setShortFilmsCheck}/>
+                    <SearchForm submitHandler={submitHandler} checkbox={shortFilmsCheck} setCheckbox={setShortFilmsCheck} />
                     {moviesForRender && !message && (
-                        <MoviesCardList movies={moviesForRender} onSavedPage={true} onDeleteHandler={deleteMovie} savedMovies={savedMovies} />
+                        <MoviesCardList movies={moviesForRender} onSavedPage={true} savedMovies={savedMovies} setSavedMovies={setSavedMovies} setMoviesForRender={setMoviesForRender} />
                     )}
                     {message && (
                         <p className="saved-movies__message">{message}</p>

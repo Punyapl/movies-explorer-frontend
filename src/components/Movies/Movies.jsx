@@ -11,8 +11,6 @@ import Preloader from "../Preloader/Preloader";
 import { findOnlyShortMovies, filterMovies } from "../../utils/filter";
 import { beatFilmApi } from "../../utils/MoviesApi";
 import { UseGetWidth } from "../../hooks/useGetWidth";
-import { getMovieId } from "../../utils/getMovieId";
-import { mainApi } from "../../utils/MainApi";
 import { defaultMessageError } from "../../utils/constants";
 
 function Movies({ savedMovies, setSavedMovies }) {
@@ -27,7 +25,6 @@ function Movies({ savedMovies, setSavedMovies }) {
     const cardsCount = initialCardsAmount + cardsInBundle * cardsPage;
     const width = UseGetWidth();
     const queryData = localStorage.getItem("queryData");
-    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (queryData) {
@@ -37,65 +34,66 @@ function Movies({ savedMovies, setSavedMovies }) {
     }, [])
 
     useEffect(() => {
-        if (width >= 1280) {
-            setInitialCards(12);
-            setCardsInBundle(3);
-        } else if (width > 480 && width < 1280) {
-            setInitialCards(8);
-            setCardsInBundle(2);
-        } else if (width <= 480) {
-            setInitialCards(5);
-            setCardsInBundle(5);
-        }
+        const cardSettings = [
+            { breakpoint: 1280, initialCards: 12, cardsInBundle: 3 },
+            { breakpoint: 480, initialCards: 8, cardsInBundle: 2 },
+            { breakpoint: 0, initialCards: 5, cardsInBundle: 5 }
+        ];
+    
+        const { initialCards: newInitialCards, cardsInBundle: newCardsInBundle } = 
+          cardSettings.find(setting => width >= setting.breakpoint) || 
+          cardSettings[cardSettings.length - 1];
+    
+        setInitialCards(newInitialCards);
+        setCardsInBundle(newCardsInBundle);
     }, [width]);
 
     let filteredMovies = JSON.parse(queryData)?.filteredMovies || [];
     let filteredShortMovies = JSON.parse(queryData)?.filteredShortMovies || [];
 
     useEffect(() => {
-        if (!errorMessage) {
-            shortFilmsCheck
-                ? setMovies(filteredShortMovies.slice(0, cardsCount))
-                : setMovies(filteredMovies.slice(0, cardsCount));
-        }
-    }, [shortFilmsCheck, cardsCount, errorMessage]);
+        const moviesToSet = !errorMessage ? 
+          (shortFilmsCheck ? filteredShortMovies : filteredMovies) : [];
+      
+        setMovies(moviesToSet.slice(0, cardsCount));
+      }, [shortFilmsCheck, cardsCount, errorMessage]);
 
     useEffect(() => {
         if (queryData) {
-            const updatedQueryData = JSON.parse(queryData);
-            updatedQueryData.isOnlyShortFilms = shortFilmsCheck;
-            localStorage.setItem("queryData", JSON.stringify(updatedQueryData));
+          localStorage.setItem(
+            "queryData",
+            JSON.stringify({
+              ...JSON.parse(queryData),
+              isOnlyShortFilms: shortFilmsCheck
+            })
+          );
         }
-    }, [shortFilmsCheck, queryData]);
+      }, [shortFilmsCheck, queryData]);
 
-    const submitHandler = async (isOnlyShortFilms, searchQuery) => {
+    const submitHandler = (isOnlyShortFilms, searchQuery) => {
+        setErrorMessage("");
         setIsLoading(true);
         beatFilmApi
             .getMovies()
             .then((result) => {
-                filteredMovies = filterMovies(searchQuery, result);
-                filteredShortMovies = findOnlyShortMovies(filteredMovies);
-                const queryData = {
+                setErrorMessage("");
+                localStorage.setItem("queryData", JSON.stringify({
                     result,
                     searchQuery: searchQuery,
-                    filteredMovies,
-                    filteredShortMovies,
-                    isOnlyShortFilms,
-                };
-                localStorage.setItem("queryData", JSON.stringify(queryData));
+                    filteredMovies: filterMovies(searchQuery, result),
+                    filteredShortMovies: findOnlyShortMovies(filteredMovies),
+                    isOnlyShortFilms
+                }));
 
-                isOnlyShortFilms
-                    ? setMovies(filteredShortMovies.slice(0, initialCardsAmount))
-                    : setMovies(filteredMovies.slice(0, initialCardsAmount));
-
-                setErrorMessage("")
-                setIsLoading(false);
+                setMovies(isOnlyShortFilms ? filteredShortMovies.slice(0, initialCardsAmount) : filteredMovies.slice(0, initialCardsAmount));
             })
-            .catch((e) => {
+            .catch((err) => {
                 setMovies([]);
                 setErrorMessage(defaultMessageError);
-                console.log(e);
-                setIsLoading(false);
+                console.log(err);
+            })
+            .finally(() => {
+                setIsLoading(false)
             });
     };
 
@@ -111,27 +109,6 @@ function Movies({ savedMovies, setSavedMovies }) {
         }
     };
 
-    const saveMovie = (movie, likeHandler) => {
-        mainApi
-            .createMovie(movie, token)
-            .then((newMovie) => {
-                setSavedMovies([...savedMovies, Object.values(newMovie)[0]]);
-                likeHandler(true);
-            })
-            .catch((e) => console.log(e));
-    };
-
-    const deleteMovie = (movieId, likeHandler) => {
-        const idInSavedMovies = getMovieId(movieId, savedMovies)
-        mainApi
-            .removeMovie(idInSavedMovies, token)
-            .then(() => {
-                likeHandler(false);
-                setSavedMovies((state) => state.filter((m) => m._id !== idInSavedMovies));
-            })
-            .catch((e) => console.log(e));
-    };
-
     return (
         <>
             <Header location={'app'} />
@@ -144,7 +121,7 @@ function Movies({ savedMovies, setSavedMovies }) {
                         lastSearchQuery={lastSearchQuery}
                         isLoading={isLoading}
                     />
-                    {isLoading ? <Preloader /> : <MoviesCardList movies={movies} onSaveHandler={saveMovie} onDeleteHandler={deleteMovie} savedMovies={savedMovies} onSavedPage={false} />}
+                    {isLoading ? <Preloader /> : <MoviesCardList movies={movies} savedMovies={savedMovies} onSavedPage={false} setSavedMovies={setSavedMovies} />}
                     {!isLoading && movies.length < 1 && (
                         <p className="movies__message">{errorMessage || "Ничего не найдено"}</p>
                     )}

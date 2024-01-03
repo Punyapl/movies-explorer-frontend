@@ -4,7 +4,7 @@ import deleteIcon from "../../images/delete.svg";
 import likeIcon from "../../images/like.svg";
 import likeIconActive from "../../images/likeActive.svg";
 
-import { serverUrl } from "../../utils/constants";
+import { SERVER_URL } from "../../utils/constants";
 
 function MoviesCard({ movie, onSaveHandler, onDeleteHandler, savedMovies, onSavedPage }) {
 
@@ -13,7 +13,7 @@ function MoviesCard({ movie, onSaveHandler, onDeleteHandler, savedMovies, onSave
     const hourDuration = `${~~(duration / 60)}ч ${duration - ((~~(duration / 60)) * 60)}м`
     const movieData = {
         duration,
-        image: onSavedPage ? image : `${serverUrl}${image.url}`,
+        image: onSavedPage ? image : `${SERVER_URL}${image.url}`,
         trailerLink,
         nameRU,
         movieId: id,
@@ -21,7 +21,7 @@ function MoviesCard({ movie, onSaveHandler, onDeleteHandler, savedMovies, onSave
         director,
         year,
         description,
-        thumbnail: !onSavedPage ? `${serverUrl}${image.formats.thumbnail.url}` : ``,
+        thumbnail: !onSavedPage ? `${SERVER_URL}${image.formats.thumbnail.url}` : ``,
         nameEN,
     };
 
@@ -46,7 +46,7 @@ function MoviesCard({ movie, onSaveHandler, onDeleteHandler, savedMovies, onSave
     return (
         <div className="movies-card">
             <a href={movie.trailerLink} className="movies-card__trailer-link">
-                <img className="movies-card__image" src={onSavedPage ? movie.image : `${serverUrl}${movie.image.url}`} alt={movie.nameRU} />
+                <img className="movies-card__image" src={onSavedPage ? movie.image : `${SERVER_URL}${movie.image.url}`} alt={movie.nameRU} />
             </a>
 
             <div className="movies-card__header">

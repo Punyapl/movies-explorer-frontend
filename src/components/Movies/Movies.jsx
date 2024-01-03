@@ -11,7 +11,20 @@ import Preloader from "../Preloader/Preloader";
 import { findOnlyShortMovies, filterMovies } from "../../utils/filter";
 import { beatFilmApi } from "../../utils/MoviesApi";
 import { UseGetWidth } from "../../hooks/useGetWidth";
-import { defaultMessageError } from "../../utils/constants";
+
+import {
+    DEFAULT_MESSAGE_ERROR,
+    LAPTOP_CARD_BREAKPOINT,
+    LAPTOP_CARD_BUNDLE,
+    LAPTOP_CARD_INITIAL,
+    TABLET_CARD_BREAKPOINT,
+    TABLET_CARD_BUNDLE,
+    TABLET_CARD_INITIAL,
+    MOBILE_CARD_BREAKPOINT,
+    MOBILE_CARD_BUNDLE,
+    MOBILE_CARD_INITIAL
+} from "../../utils/constants";
+
 
 function Movies({ savedMovies, setSavedMovies }) {
     const [movies, setMovies] = useState([]);
@@ -35,15 +48,15 @@ function Movies({ savedMovies, setSavedMovies }) {
 
     useEffect(() => {
         const cardSettings = [
-            { breakpoint: 1280, initialCards: 12, cardsInBundle: 3 },
-            { breakpoint: 480, initialCards: 8, cardsInBundle: 2 },
-            { breakpoint: 0, initialCards: 5, cardsInBundle: 5 }
+            { breakpoint: LAPTOP_CARD_BREAKPOINT, initialCards: LAPTOP_CARD_INITIAL, cardsInBundle: LAPTOP_CARD_BUNDLE },
+            { breakpoint: TABLET_CARD_BREAKPOINT, initialCards: TABLET_CARD_INITIAL, cardsInBundle: TABLET_CARD_BUNDLE },
+            { breakpoint: MOBILE_CARD_BREAKPOINT, initialCards: MOBILE_CARD_INITIAL, cardsInBundle: MOBILE_CARD_BUNDLE }
         ];
-    
-        const { initialCards: newInitialCards, cardsInBundle: newCardsInBundle } = 
-          cardSettings.find(setting => width >= setting.breakpoint) || 
-          cardSettings[cardSettings.length - 1];
-    
+
+        const { initialCards: newInitialCards, cardsInBundle: newCardsInBundle } =
+            cardSettings.find(setting => width >= setting.breakpoint) ||
+            cardSettings[cardSettings.length - 1];
+
         setInitialCards(newInitialCards);
         setCardsInBundle(newCardsInBundle);
     }, [width]);
@@ -51,37 +64,40 @@ function Movies({ savedMovies, setSavedMovies }) {
     let filteredMovies = JSON.parse(queryData)?.filteredMovies || [];
     let filteredShortMovies = JSON.parse(queryData)?.filteredShortMovies || [];
 
+    //!!!!!!!!!!
     useEffect(() => {
-        const moviesToSet = !errorMessage ? 
-          (shortFilmsCheck ? filteredShortMovies : filteredMovies) : [];
-      
+        const moviesToSet = !errorMessage ?
+            (shortFilmsCheck ? filteredShortMovies : filteredMovies) : [];
+
         setMovies(moviesToSet.slice(0, cardsCount));
-      }, [shortFilmsCheck, cardsCount, errorMessage]);
+    }, [shortFilmsCheck, cardsCount, errorMessage]);
 
     useEffect(() => {
         if (queryData) {
-          localStorage.setItem(
-            "queryData",
-            JSON.stringify({
-              ...JSON.parse(queryData),
-              isOnlyShortFilms: shortFilmsCheck
-            })
-          );
+            localStorage.setItem(
+                "queryData",
+                JSON.stringify({
+                    ...JSON.parse(queryData),
+                    isOnlyShortFilms: shortFilmsCheck
+                })
+            );
         }
-      }, [shortFilmsCheck, queryData]);
+    }, [shortFilmsCheck, queryData]);
 
-    const submitHandler = (isOnlyShortFilms, searchQuery) => {
+    const handleSubmit = (isOnlyShortFilms, searchQuery) => {
         setErrorMessage("");
         setIsLoading(true);
         beatFilmApi
             .getMovies()
             .then((result) => {
                 setErrorMessage("");
+                let filteredMovies = filterMovies(searchQuery, result);
+                let filteredShortMovies = findOnlyShortMovies(filteredMovies);
                 localStorage.setItem("queryData", JSON.stringify({
                     result,
                     searchQuery: searchQuery,
-                    filteredMovies: filterMovies(searchQuery, result),
-                    filteredShortMovies: findOnlyShortMovies(filteredMovies),
+                    filteredMovies: filteredMovies,
+                    filteredShortMovies: filteredShortMovies,
                     isOnlyShortFilms
                 }));
 
@@ -89,7 +105,7 @@ function Movies({ savedMovies, setSavedMovies }) {
             })
             .catch((err) => {
                 setMovies([]);
-                setErrorMessage(defaultMessageError);
+                setErrorMessage(DEFAULT_MESSAGE_ERROR);
                 console.log(err);
             })
             .finally(() => {
@@ -97,7 +113,7 @@ function Movies({ savedMovies, setSavedMovies }) {
             });
     };
 
-    const moreButtonHandler = () => {
+    const handleMoreButton = () => {
         if (shortFilmsCheck) {
             if (cardsCount < filteredShortMovies.length) {
                 setCardsPage((prevPage) => prevPage + 1);
@@ -115,7 +131,7 @@ function Movies({ savedMovies, setSavedMovies }) {
             <main className="main">
                 <section className="movies">
                     <SearchForm
-                        submitHandler={submitHandler}
+                        submitHandler={handleSubmit}
                         checkbox={shortFilmsCheck}
                         setCheckbox={setShortFilmsCheck}
                         lastSearchQuery={lastSearchQuery}
@@ -128,9 +144,9 @@ function Movies({ savedMovies, setSavedMovies }) {
                     <div className="movies__footer">
                         {shortFilmsCheck
                             ? cardsCount < filteredShortMovies.length &&
-                            !isLoading && <button className="movies__button" onClick={moreButtonHandler}>Ещё</button>
+                            !isLoading && <button className="movies__button" onClick={handleMoreButton}>Ещё</button>
                             : cardsCount < filteredMovies.length &&
-                            !isLoading && <button className="movies__button" onClick={moreButtonHandler}>Ещё</button>}
+                            !isLoading && <button className="movies__button" onClick={handleMoreButton}>Ещё</button>}
                     </div>
                 </section>
             </main>

@@ -124,6 +124,11 @@
     opacity: 0.8;
 }
 
+.login__button_disabled {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
 @media (max-width: 500px) {
     .login__button {
         margin-top: 237px

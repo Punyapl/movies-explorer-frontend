@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Main from '../Main/Main.jsx';
 import Movies from '../Movies/Movies.jsx'
 import SavedMovies from '../SavedMovies/SavedMovies.jsx'
@@ -12,8 +12,8 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import currentUserContext from "../../context/currentUserContext";
 import { mainApi } from "../../utils/MainApi";
 import * as auth from "../../utils/auth.js"
-import { defaultMessageError } from "../../utils/constants.js";
-import { defaultMessageSaved } from "../../utils/constants.js";
+import { DEFAULT_MESSAGE_ERROR } from "../../utils/constants.js";
+import { DEFAULT_MESSAGE_SAVED } from "../../utils/constants.js";
 
 function App() {
 
@@ -29,11 +29,16 @@ function App() {
     email: "",
   });
   const [savedMovies, setSavedMovies] = useState([])
+  const location = useLocation();
 
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
-      navigate("/movies");
+      if ((location.pathname === "/sign-up") || (location.pathname === "/sign-in")) {
+        navigate("/movies");
+      } else {
+        navigate(location.pathname)
+      }
     }
   }, [token]);
 
@@ -61,11 +66,11 @@ function App() {
           setSavedMoviesMessage("");
         })
         .catch((err) => {
-          setSavedMoviesMessage(defaultMessageError);
+          setSavedMoviesMessage(DEFAULT_MESSAGE_ERROR);
         });
     }
 
-  }, [currentUser._id, setSavedMovies, token, isLoggedIn, setSavedMoviesMessage]);
+  }, [currentUser._id, setSavedMovies, token]);
 
   function registerUser(name, email, password) {
     setIsLoading(true);
@@ -129,25 +134,13 @@ function App() {
   function updateUserInfo(userDataFromForm) {
     setProfilePageMessage("");
     setIsLoading(true);
-  
+
     mainApi
       .editCurrentUserInfo(userDataFromForm, token)
       .then((userDataUpdated) => {
-        setCurrentUser({
-          name: userDataUpdated.name,
-          email: userDataUpdated.email,
-        });
-        mainApi
-          .getCurrentUserInfo(token)
-          .then((res) => {
-            setCurrentUser(res.data);
-            setIsLoading(false);
-            setProfilePageMessage(defaultMessageSaved);
-          })
-          .catch((err) => {
-            setIsLoading(false);
-            console.log(err);
-          });
+        setCurrentUser(userDataUpdated.data);
+        setIsLoading(false);
+        setProfilePageMessage(DEFAULT_MESSAGE_SAVED);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -157,6 +150,7 @@ function App() {
 
   return (
     <currentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+
       <div className="page">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -208,7 +202,7 @@ function App() {
             message={unauthPageMessage}
             setMessage={setUnauthPageMessage}
           />} />
-          <Route path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </currentUserContext.Provider>

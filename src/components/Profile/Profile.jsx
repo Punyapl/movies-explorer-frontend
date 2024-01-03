@@ -65,7 +65,7 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
         setCurrentUser({ name: "", email: "" });
     };
 
-    const onSubmitForm = (e) => {
+    const handleSubmitForm = (e) => {
         e.preventDefault();
         checkIsFormValid(formValues.name, formValues.email);
         submitHandler({ name: formValues.name, email: formValues.email });
@@ -79,7 +79,7 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
                 <section className="profile">
                     <div className="profile__container">
                         <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
-                        <form className="profile__form" onSubmit={onSubmitForm} noValidate>
+                        <form className="profile__form" onSubmit={handleSubmitForm} noValidate>
                             <fieldset className="profile__inputs">
                                 <div className="profile__input">
                                     <label

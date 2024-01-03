@@ -18,8 +18,17 @@ function SavedMovies({ savedMovies, setSavedMovies, message }) {
         setMoviesForRender(savedMovies)
     }, [savedMovies])
 
-    const submitHandler = (isOnlyShortFilms, searchQuery) => {
-        setMoviesForRender(isOnlyShortFilms ? findOnlyShortMovies(filterMovies(searchQuery, savedMovies)) : filterMovies(searchQuery, savedMovies));
+    useEffect(() => {
+        const moviesToSet = shortFilmsCheck ? findOnlyShortMovies(filterMovies("", savedMovies)) : filterMovies("", savedMovies);
+        setMoviesForRender(moviesToSet);
+    }, [shortFilmsCheck, savedMovies])
+
+    const handleSubmit = (isOnlyShortFilms, searchQuery) => {
+        if (isOnlyShortFilms){
+            setMoviesForRender(findOnlyShortMovies(filterMovies(searchQuery, savedMovies)))
+        } else {
+            setMoviesForRender(filterMovies(searchQuery, savedMovies))
+        }
     };
 
     useEffect(() => {
@@ -37,7 +46,7 @@ function SavedMovies({ savedMovies, setSavedMovies, message }) {
             <Header location={'app'} />
             <main className="main">
                 <section className="saved-movies">
-                    <SearchForm submitHandler={submitHandler} checkbox={shortFilmsCheck} setCheckbox={setShortFilmsCheck} />
+                    <SearchForm submitHandler={handleSubmit} checkbox={shortFilmsCheck} setCheckbox={setShortFilmsCheck} />
                     {moviesForRender && !message && (
                         <MoviesCardList movies={moviesForRender} onSavedPage={true} savedMovies={savedMovies} setSavedMovies={setSavedMovies} setMoviesForRender={setMoviesForRender} />
                     )}

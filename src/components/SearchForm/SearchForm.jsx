@@ -21,9 +21,6 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery, isL
     if (value.length === 0) {
       setErrorText("Заполните это поле");
       setIsFormValid(false);
-    } else if (value.length < 2) {
-      setErrorText("Минимальное количество символов — 2");
-      setIsFormValid(false);
     } else if (value.length >= 30) {
       setErrorText("Максимальное количество символов — 30");
       setIsFormValid(false);
@@ -36,13 +33,13 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery, isL
     }
   };
 
-  const onSubmitForm = async (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
     isFormValid ? submitHandler(checkbox, queryValue) : setErrorText("Заполните правильно это поле");
   };
 
   return (
-    <form className="search-form" name="search-form" onSubmit={onSubmitForm} noValidate>
+    <form className="search-form" name="search-form" onSubmit={handleSubmitForm} noValidate>
       <div className="search-form__string">
         <input
           className="search-form__input"

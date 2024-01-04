@@ -80,6 +80,7 @@ function App() {
         if (res) {
           loginUser(email, password);
           setUnauthPageMessage("");
+          setIsLoading(false);
         }
       })
       .catch((err) => {
@@ -91,9 +92,6 @@ function App() {
           }
         })
           .catch((err) => console.error(err))
-          .finally(() => {
-            setIsLoading(false);
-          });
       });
   }
 
@@ -106,6 +104,7 @@ function App() {
           setIsLoggedIn(true);
           navigate("/movies");
           setUnauthPageMessage("");
+          setIsLoading(false);
         }
       })
       .catch((err) => {
@@ -125,9 +124,7 @@ function App() {
             setUnauthPageMessage('Не удалось войти');
           }
         })
-          .then(() => setIsLoggedIn(false))
           .catch((err) => console.error(err))
-          .finally(() => setIsLoading(false));
       });
   }
 

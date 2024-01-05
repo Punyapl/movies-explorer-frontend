@@ -10,6 +10,9 @@ function Register({ submitHandler, isLoading, message, setMessage }) {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isNameValid, setIsNameValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     useEffect(() => setMessage(""), [setMessage]);
 
@@ -17,54 +20,69 @@ function Register({ submitHandler, isLoading, message, setMessage }) {
         switch (name) {
             case "name":
                 if (value.length === 0) {
+                    setIsNameValid(false);
                     setIsFormValid(false);
                     setMessage("");
                 } else if (value.length < 2) {
+                    setIsNameValid(false);
                     setIsFormValid(false);
                     setMessage("Минимальная длина имени - 2");
                 } else if (value.length > 30) {
+                    setIsNameValid(false);
                     setIsFormValid(false);
                     setMessage("Максимальная длина имени - 30");
                 } else if (!new RegExp(/^[а-яА-ЯёЁa-zA-Z\s/-]+$/).test(value)) {
+                    setIsNameValid(false);
                     setIsFormValid(false);
                     setMessage("Для имени можно использовать только буквы, дефисы и пробелы");
                 } else {
-                    setIsFormValid(true);
+                    setIsNameValid(true);
                     setMessage("");
                 }
                 break;
             case "email":
                 if (value.length === 0) {
+                    setIsEmailValid(false);
                     setIsFormValid(false);
                     setMessage("");
                 } else if (!validator.isEmail(value)) {
+                    setIsEmailValid(false);
                     setIsFormValid(false);
                     setMessage("Проверьте правильность написания электронной почты");
                 } else {
-                    setIsFormValid(true);
+                    setIsEmailValid(true);
                     setMessage("");
                 }
                 break;
             case "password":
-                if (value.length === 0){
-                    setIsFormValid(false)
+                if (value.length === 0) {
+                    setIsPasswordValid(false);
+                    setIsFormValid(false);
                     setMessage("");
                 } else if (value.length < 8) {
-                    setIsFormValid(false)
+                    setIsPasswordValid(false);
+                    setIsFormValid(false);
                     setMessage("Минимальная длина пароля - 8");
                 } else {
-                    setIsFormValid(true);
+                    setIsPasswordValid(true);
                     setMessage("");
                 }
                 break;
             default:
                 break;
+        };
+    }
+
+    const checkCombinedInputValidity = () => {
+        const combinedValidity = (isEmailValid === true) && (isNameValid === true) && (isPasswordValid === true)
+        if (combinedValidity) {
+            setIsFormValid(true);
         }
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        checkIsFormValid(name, value);
+
         if (name === "name") {
             setName(e.target.value)
         } else if (name === "email") {
@@ -72,7 +90,13 @@ function Register({ submitHandler, isLoading, message, setMessage }) {
         } else if (name === "password") {
             setPassword(e.target.value)
         }
+        
+        checkIsFormValid(name, value);
     };
+
+    useEffect(() => {
+        checkCombinedInputValidity();
+    })
 
     const handleSubmitForm = (e) => {
         e.preventDefault();

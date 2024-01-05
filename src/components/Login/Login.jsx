@@ -9,6 +9,8 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     useEffect(() => setMessage(""), [setMessage]);
 
@@ -16,25 +18,29 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
         switch (name) {
             case "email":
                 if (value.length === 0) {
+                    setIsEmailValid(false);
                     setIsFormValid(false);
                     setMessage("");
                 } else if (!validator.isEmail(value)) {
+                    setIsEmailValid(false);
                     setIsFormValid(false);
                     setMessage("Проверьте правильность написания электронной почты");
                 } else {
-                    setIsFormValid(true);
+                    setIsEmailValid(true);
                     setMessage("");
                 }
                 break;
             case "password":
-                if (value.length === 0){
-                    setIsFormValid(false)
+                if (value.length === 0) {
+                    setIsPasswordValid(false);
+                    setIsFormValid(false);
                     setMessage("");
                 } else if (value.length < 8) {
-                    setIsFormValid(false)
+                    setIsPasswordValid(false);
+                    setIsFormValid(false);
                     setMessage("Минимальная длина пароля - 8");
                 } else {
-                    setIsFormValid(true);
+                    setIsPasswordValid(true);
                     setMessage("");
                 }
                 break;
@@ -43,15 +49,28 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
         }
     }
 
+    const checkCombinedInputValidity = () => {
+        const combinedValidity = (isEmailValid === true) && (isPasswordValid === true)
+        if (combinedValidity) {
+            setIsFormValid(true);
+        }
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        checkIsFormValid(name, value);
+        
         if (name === "email") {
             setEmail(e.target.value)
         } else if (name === "password") {
             setPassword(e.target.value)
-        }
+        };
+
+        checkIsFormValid(name, value);
     };
+
+    useEffect(() => {
+        checkCombinedInputValidity();
+    })
 
     const handleSubmitForm = (e) => {
         e.preventDefault();

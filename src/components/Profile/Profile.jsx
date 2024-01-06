@@ -14,49 +14,105 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
         email: currentUser.email,
     });
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isNameValid, setIsNameValid] = useState(false);
+    const [isProfileChanged, setIsProfileChanged] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        setIsFormValid(false);
+        setFormValues({
+            name: currentUser.name,
+            email: currentUser.email,
+        });
+    }, [currentUser])
+
+    useEffect(() => {
+        if ((currentUser.name !== formValues.name) || (currentUser.email !== formValues.email)) {
+            setIsProfileChanged(true);
+        }
+        if ((currentUser.name === formValues.name) && (currentUser.email === formValues.email)) {
+            setIsProfileChanged(false);
+        }
+    }, [currentUser, formValues]);
 
     const checkIsFormValid = (name, value) => {
         switch (name) {
             case "name":
-                if ((value.length > 2)) {
-                    setIsFormValid(true);
-                } else if (value.length < 30) {
-                    setIsFormValid(true);
-                } else if (new RegExp(/^[а-яА-ЯёЁa-zA-Z\s/-]+$/).test(value)) {
-                    setIsFormValid(true);
-                } else if (value !== currentUser.name){
-                    setIsFormValid(true);
+                if (value.length < 2) {
+                    setIsNameValid(false);
+                } else if (value.length > 30) {
+                    setIsNameValid(false);
+                } else if (!new RegExp(/^[а-яА-ЯёЁa-zA-Z\s/-]+$/).test(value)) {
+                    setIsNameValid(false);
                 } else {
-                    setIsFormValid(false);
+                    setIsNameValid(true);
                 }
                 break;
             case "email":
-                if (value.length !== 0) {
-                    setIsFormValid(true);
-                } else if (validator.isEmail(value)) {
-                    setIsFormValid(true);
-                } else if (value !== currentUser.email){
-                    setIsFormValid(true);
+                if (!validator.isEmail(value)) {
+                    setIsEmailValid(false);
                 } else {
-                    setIsFormValid(false);
+                    setIsEmailValid(true);
                 }
                 break;
             default:
                 break;
+        };
+    }
+
+    const checkCombinedInputValidity = () => {
+
+        if (isProfileChanged) {
+
+            checkIsFormValid("email", formValues.email)
+            checkIsFormValid("name", formValues.name)
+            const combinedValidity = (isEmailValid === true) && (isNameValid === true);
+            if (combinedValidity) {
+                setIsFormValid(true);
+            } else {
+                setIsFormValid(false);
+            };
+
+        } else {
+            setIsFormValid(false);
         }
+
     }
 
     const handleChange = (e) => {
+        setMessage("");
         const { name, value } = e.target;
-        checkIsFormValid(name, value);
+
         setFormValues({ ...formValues, [name]: value });
+        checkIsFormValid(name, value);
+
+
     };
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        checkCombinedInputValidity();
+    })
+
+    useEffect(() => {
+        if (!isEmailValid) {
+            setErrorMessage("Проверьте правильность написания поля E-mail")
+        } else if (!isNameValid) {
+            setErrorMessage("Проверьте правильность написания поля Имя")
+        }
+        else {
+            setErrorMessage("")
+        }
+    }, [isEmailValid, isNameValid])
 
     useEffect(() => {
         setMessage("");
-    }, [setMessage]);
+        setErrorMessage("")
+    }, [setMessage, setErrorMessage]);
+
+    const navigate = useNavigate();
+
+
 
     const signOut = () => {
         localStorage.clear();
@@ -122,9 +178,15 @@ function Profile({ setIsLoggedIn, submitHandler, isLoading, message, setMessage 
                                     />
                                 </div>
                             </fieldset>
-                            <p className="profile__message">
-                                {message}
-                            </p>
+                            <div className="profile__messages">
+                                <p className="profile__message">
+                                    {message}
+                                </p>
+                                <p className={`profile__error-message ${(errorMessage === "")? 'profile__error-message_hidden' : ''}`}>
+                                    {errorMessage}
+                                </p>
+                            </div>
+
                             <div className="profile__buttons">
                                 <button className={`profile__button profile__edit-button ${!isFormValid && "profile__button_disabled"}`} type="submit" disabled={!isFormValid || isLoading}>
                                     Редактировать

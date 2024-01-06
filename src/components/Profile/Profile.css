@@ -156,7 +156,6 @@
 
 .profile__message {
     margin: 0;
-    margin-bottom: 16px;
     min-height: 13px;
     text-align: center;
     color: #FFF;
@@ -171,4 +170,31 @@
     .profile__message {
         font-size: 12px;
     }
+}
+
+.profile__error-message {
+    margin: 0;
+    min-height: 13px;
+    text-align: center;
+    color: #EE3465;
+    text-align: center;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 500px) {
+    .profile__error-message {
+        font-size: 12px;
+    }
+}
+
+.profile__error-message_hidden {
+    display: none;
+}
+
+.profile__messages {
+    margin: 0;
+    margin-bottom: 16px;
 }

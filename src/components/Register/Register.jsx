@@ -128,8 +128,8 @@ function Register({ submitHandler, isLoading, message, setMessage }) {
                                     type="text"
                                     placeholder="Имя"
                                     required
-                                    minLength={2}
-                                    maxLength={16}
+                                    // minLength={2}
+                                    // maxLength={16}
                                     value={name}
                                     onChange={handleChange}
                                     disabled={isLoading}
@@ -168,8 +168,8 @@ function Register({ submitHandler, isLoading, message, setMessage }) {
                                     type="password"
                                     placeholder="Пароль"
                                     required
-                                    minLength={6}
-                                    maxLength={16}
+                                    // minLength={6}
+                                    // maxLength={16}
                                     value={password}
                                     onChange={handleChange}
                                 />

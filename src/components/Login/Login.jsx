@@ -121,8 +121,8 @@ function Login({ submitHandler, isLoading, message, setMessage }) {
                                     type="password"
                                     placeholder="Пароль"
                                     required
-                                    minLength={6}
-                                    maxLength={16}
+                                    // minLength={6}
+                                    // maxLength={16}
                                     value={password}
                                     onChange={handleChange}
                                     disabled={isLoading}

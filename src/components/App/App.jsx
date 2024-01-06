@@ -84,6 +84,7 @@ function App() {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         err.json().then((err) => {
           if (err?.message) {
             setUnauthPageMessage(err.message);
@@ -108,6 +109,7 @@ function App() {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         switch (err.status) {
           case 401:
             setUnauthPageMessage('Неверные данные для входа');

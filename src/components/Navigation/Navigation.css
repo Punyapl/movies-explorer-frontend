@@ -1,0 +1,140 @@
+.navigation-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    z-index: 11;
+}
+
+.navigation-overlay_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.navigation {
+    box-sizing: border-box;
+    width: 521px;
+    height: 100vh;
+    background-color: #202020;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 159px 90px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+@media (max-width: 540px) {
+    .navigation {
+        width: 100vw;
+        padding: 144px 10px 48px;
+    }
+}
+
+.navigation__links {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation__link {
+    align-self: center;
+    list-style: none;
+    margin-bottom: 21px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.45;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    text-decoration: none;
+    padding-bottom: 2px;
+}
+
+.navigation__link:hover {
+    opacity: 0.7;
+}
+
+.navigation__link.active {
+    border-bottom: 2px solid #fff;
+}
+
+@media (max-width: 500px) {
+    .navigation__link {
+        padding-bottom: 1px;
+    }
+}
+
+.navigation__link:last-child {
+    margin-bottom: 0;
+}
+
+.navigation_hidden {
+    transform: translateX(100%);
+}
+
+.navigation_visible {
+    transform: translateX(0);
+}
+
+.navigation-container__close {
+    background: none;
+    border: none;
+}
+
+.navigation-container__close-icon {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 500px) {
+    .navigation-container__close-icon {
+        top: 13px;
+        right: 13px;
+    }
+}
+
+.navigation-container__close-icon:hover {
+    opacity: 0.8;
+}
+
+
+.navigation__account-button {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.navigation__account-button:hover {
+    opacity: 0.7;
+}
+
+.navigation__account-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+    color: #fff;
+}
+
+.navigation__account-icon {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.075);
+    padding: 10px;
+    border-radius: 50px;
+}

@@ -1,0 +1,187 @@
+.login {
+    box-sizing: border-box;
+    padding-top: 70px;
+    min-height: 100vh;
+    line-height: 1.21;
+    color: #FFF;
+    max-width: 1280px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .login {
+        padding-top: 232px;
+    }
+}
+
+@media (max-width: 500px) {
+    .login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 56px;
+        max-width: 260px;
+    }
+}
+
+.login__container {
+    max-width: 396px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+}
+
+@media (max-width: 500px) {
+    .login__container {
+        align-items: center;
+    }
+}
+
+.login__logo-container {
+    max-width: 38px;
+}
+
+.login__logo {
+    margin-bottom: 40px;
+}
+
+@media (max-width: 500px) {
+    .login__logo {
+        margin-bottom: 50px;
+    }
+}
+
+.login__title {
+    margin: 0 0 40px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+@media (max-width: 500px) {
+    .login__title {
+        margin-bottom: 80px;
+    }
+}
+
+@media (max-width: 500px) {
+    .login__form {
+        width: 100%;
+    }
+}
+
+.login__inputs {
+    padding: 0;
+    margin: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login__input-label {
+    color: #8B8B8B;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.login__input-field {
+    padding: 0;
+    padding-left: 15px;
+    border-radius: 8px;
+    background: #2F2F2F;
+    border: none;
+    min-height: 46px;
+    color: #FFF;
+}
+
+.login__button {
+    cursor: pointer;
+    border: none;
+    margin-top: 149px
+        /*179px*/
+    ;
+    height: 45px;
+    width: 100%;
+    border-radius: 3px;
+    background: #4285F4;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.login__button:hover {
+    opacity: 0.8;
+}
+
+.login__button_disabled {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+@media (max-width: 500px) {
+    .login__button {
+        margin-top: 237px
+            /*267px*/
+        ;
+        font-size: 12px;
+    }
+}
+
+.login__text {
+    color: #8B8B8B;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@media (max-width: 500px) {
+    .login__text {
+        margin-top: 14px;
+        font-size: 12px;
+    }
+}
+
+.login__link {
+    cursor: pointer;
+    color: #4285f4;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    padding-left: 6px;
+}
+
+.login__link:hover {
+    opacity: 0.7;
+}
+
+.login__message {
+    margin: 0;
+    min-height: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: transparent;
+    transition: all 0.4s ease-in-out;
+}
+
+.login__message_fail {
+    color: #ee3465;
+}
+
+@media (max-width: 500px) {
+    .login__message {
+        font-size: 13px;
+    }
+}
